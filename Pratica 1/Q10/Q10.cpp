@@ -29,7 +29,7 @@ int main()
     cout << qtd_leve << endl;
     cout << qtd_media << endl;
     cout << qtd_pesada << endl;
-    cout << valor - resto;
+    cout << bala_leve * qtd_leve + bala_media * qtd_media + bala_pesada * qtd_pesada;
 
     return 0;
 }

@@ -27,4 +27,6 @@ int main()
         << notas_100 << endl
         << notas_50 << endl
         << notas_10;
+
+        return 0;
 }

@@ -21,4 +21,6 @@ int main()
     arquivo << horas << endl
             << minutos << endl
             << segundos;
+
+    return 0;
 }

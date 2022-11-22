@@ -24,4 +24,6 @@ int main()
     {
         cout << "erro";
     }
+    return 0;
+
 }

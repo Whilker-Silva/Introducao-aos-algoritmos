@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 float CENTIMETRO(float v)
 {
     v = v * 100;
@@ -40,4 +39,3 @@ int main()
     }
     return 0;
 }
-

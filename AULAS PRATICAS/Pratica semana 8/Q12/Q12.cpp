@@ -20,27 +20,47 @@ int main()
     {
         cin >> vetor2[i];
     }
+    cout << endl;
 
-    // comparando vetores
-    int iguais = 0;
+    ///////////////////////////////////////////////////
 
-    if (n1 > n2)
+    int *sequencia = new int[n1];
+    for (int j = 0; j < n1; j++)
     {
-        for (int i = 0; i < n1; i++)
+        sequencia[j] = NULL;
+    }
+    sequencia[0] = vetor1[0];
+
+    int inicio = 0, fim = 0;
+
+    for (int i = 1; i < n1; i++)
+    {
+        if ((vetor1[i] - sequencia[i - 1]) == 1)
         {
-            for (int j = 0; j < n2; j++)
+            sequencia[i] = vetor1[i];
+            fim++;
+        }
+
+        else
+        {
+
+            for (int j = inicio; j < fim; j++)
             {
-                if (vetor1[i] == vetor2[j])
+                for (int k = 0; k < n2; k++)
                 {
-                    iguais++;
+                    if (sequencia[j] == vetor2[k])
+                    {
+                        cout << vetor2[k] << " ";
+                    }
                 }
             }
+
+            cout << endl;
+
+            inicio = i;
+            fim = i;
         }
     }
-
-    cout << iguais;
-
-    
 
     return 0;
 }

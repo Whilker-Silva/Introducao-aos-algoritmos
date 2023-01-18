@@ -24,42 +24,30 @@ int main()
 
     ///////////////////////////////////////////////////
 
-    int *sequencia = new int[n1];
-    for (int j = 0; j < n1; j++)
-    {
-        sequencia[j] = NULL;
-    }
-    sequencia[0] = vetor1[0];
+    int *vetor3 = new int[n1];
+    int j = 0, k = 0;
 
-    int inicio = 0, fim = 0;
-
-    for (int i = 1; i < n1; i++)
+    for (int i = 0; i < n1; i++)
     {
-        if ((vetor1[i] - sequencia[i - 1]) == 1)
+        while (vetor1[i] == vetor2[j])
         {
-            sequencia[i] = vetor1[i];
-            fim++;
+            vetor3[k] = vetor1[i];
+            j++;
+            k++;
         }
 
-        else
-        {
+        //cout<<k<<endl;
 
-            for (int j = inicio; j < fim; j++)
+        if (k > 1)
+        {
+            for (int x = 0; x < k; x++)
             {
-                for (int k = 0; k < n2; k++)
-                {
-                    if (sequencia[j] == vetor2[k])
-                    {
-                        cout << vetor2[k] << " ";
-                    }
-                }
+                cout << vetor3[x];
             }
-
-            cout << endl;
-
-            inicio = i;
-            fim = i;
+            cout<<endl;
         }
+
+        k = 0;
     }
 
     return 0;

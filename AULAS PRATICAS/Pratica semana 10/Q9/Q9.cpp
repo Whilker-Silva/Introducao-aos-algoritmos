@@ -16,17 +16,17 @@ void preencheNavios(int **matriz, int tam, ifstream &arquivo)
     }
 }
 
-int procuraNavio_H(int **navios, int **tiros, int n)
+void procuraNavio_H(int **navios, int **tiros, int n, int &naviosAbatidos)
 {
 
     int incioNavio, fimNavio;
-    int partesAbatidas = 0, naviosAbatidos = 0;
+    int partesAbatidas = 0;
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < (n - 1); j++)
         {
-            // se encontra uma peça do navio e a peça do lado tbm é o msm navio
+            // se encontrar uma peça do navio e a peça do lado tbm é o msm navio
             if (navios[i][j] != 0 && navios[i][j] == navios[i][j + 1])
             {
                 incioNavio = j;
@@ -42,35 +42,92 @@ int procuraNavio_H(int **navios, int **tiros, int n)
 
                     else
                     {
-                        j = k + 1;
                         k = n;
                     }
                 }
-            }
 
-            // quantidades de partes do navio
-            partesAbatidas = fimNavio - incioNavio + 1;
+                // quantidades de partes do navio
+                partesAbatidas = fimNavio - incioNavio + 1;
 
-            // comparar com a matriz de tiros
-            for (int k = incioNavio; k <= fimNavio; k++)
-            {
-                if (navios[i][k] == tiros[i][k])
+                // comparar com a matriz de tiros
+                for (int k = incioNavio; k <= fimNavio; k++)
                 {
-                    partesAbatidas--;
+                    if (tiros[i][k] == 1)
+                    {
+                        partesAbatidas--;
+                    }
                 }
-            }
+                // se todas parte do navio foram abatidas
+                if (partesAbatidas == 0)
+                {
+                    naviosAbatidos++;
+                }
 
-            if (partesAbatidas == 0)
-            {
-                naviosAbatidos++;
+                j = fimNavio;
             }
-
-            partesAbatidas = 0;
         }
     }
-
-    return naviosAbatidos;
 }
+/*
+
+
+
+
+*/
+
+void procuraNavio_V(int **navios, int **tiros, int n, int &naviosAbatidos)
+{
+
+    int incioNavio, fimNavio;
+    int partesAbatidas = 0;
+
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < (n - 1); i++)
+        {
+            // se encontrar uma peça do navio e a peça de baico tbm é o msm navio
+            if (navios[i][j] != 0 && navios[i][j] == navios[i + 1][j])
+            {
+                incioNavio = i;
+
+                // percorrer restante da coluna até o final ou até navio acabar
+                for (int k = (i + 1); k < n; k++)
+                {
+
+                    if (navios[k][j] == navios[i][j])
+                    {
+                        fimNavio = k;
+                    }
+
+                    else
+                    {
+                        k = n;
+                    }
+                }
+
+                // quantidades de partes do navio
+                partesAbatidas = fimNavio - incioNavio + 1;
+
+                // comparar com a matriz de tiros
+                for (int k = incioNavio; k <= fimNavio; k++)
+                {
+                    if (tiros[k][j] == 1)
+                    {
+                        partesAbatidas--;
+                    }
+                }
+                // se todas parte do navio foram abatidas
+                if (partesAbatidas == 0)
+                {
+                    naviosAbatidos++;
+                }
+
+                i = fimNavio;
+            }
+        }
+    }
+}
+
 /*
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,12 +137,12 @@ int procuraNavio_H(int **navios, int **tiros, int n)
 int main()
 {
 
-    int n;
+    int n, naviosAbatidos = 0;
 
     ifstream arquivo("BatalhaNaval.txt");
     arquivo >> n;
 
-    // declaração das matrizes dinamicas;
+    // declaração das matriz dinamica para posicção dos navios;
     int **navios;
     navios = new int *[n];
     for (int i = 0; i < n; i++)
@@ -93,6 +150,7 @@ int main()
         navios[i] = new int[n];
     }
 
+    // declaração das matriz dinamica para posicção dos tiros;
     int **tiros;
     tiros = new int *[n];
     for (int i = 0; i < n; i++)
@@ -100,10 +158,15 @@ int main()
         tiros[i] = new int[n];
     }
 
+    // prencher matrizes com conteudo do arquivo
     preencheNavios(navios, n, arquivo);
     preencheNavios(tiros, n, arquivo);
 
-    cout << procuraNavio_H(navios, tiros, n);
+    // Verificar a quantidade de navios abtidos na horizontal
+    procuraNavio_H(navios, tiros, n, naviosAbatidos);
+    procuraNavio_V(navios, tiros, n, naviosAbatidos);
+
+    cout << naviosAbatidos;
 
     return 0;
 }

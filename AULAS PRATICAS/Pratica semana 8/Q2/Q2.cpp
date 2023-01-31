@@ -9,38 +9,37 @@ int main()
     int n;
     cin >> n;
     int aluno[n];
-    int qtd_alunos = n;
-    int qtd_repetidos = 0;
+    int alunos_presente[n];
+    bool encontrou = false;
+    int pos = 0;
 
     for (int i = 0; i < n; i++)
     {
         cin >> aluno[i];
+        alunos_presente[i] = 0;
     }
 
     for (int i = 0; i < n; i++)
     {
-        int repetidos = 0;
-
         for (int j = 0; j < n; j++)
         {
-            if (aluno[i] == aluno[j])
+            if (aluno[i] == alunos_presente[j])
             {
-                repetidos++;
+                encontrou = true;
             }
         }
-        if (repetidos > 1)
-        {
 
-            qtd_repetidos += repetidos;
+        if (encontrou == false)
+        {
+            alunos_presente[pos] = aluno[i];
+            pos++;
         }
 
-        repetidos = 0;
+        encontrou = false;
     }
 
-    qtd_repetidos = sqrt(qtd_repetidos) - 1;
-    qtd_alunos -= qtd_repetidos;
+    cout << pos;
 
-    cout << qtd_alunos;
 
     return 0;
 }

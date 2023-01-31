@@ -10,6 +10,7 @@ int main()
     cin >> n;
     int aluno[n];
     int alunos_presente[n];
+    
     bool encontrou = false;
     int pos = 0;
 

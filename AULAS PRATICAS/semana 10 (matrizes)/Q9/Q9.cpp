@@ -3,7 +3,61 @@
 
 using namespace std;
 
-/*   FUNÇÔES   */
+// declação do procedimento para preencher matrizes com valor do arquivo
+void preencheNavios(int **matriz, int tam, ifstream &arquivo);
+
+// declação do procedimento verificar qtd de navio afundados na horizontal
+void procuraNavio_H(int **navios, int **tiros, int n, int &naviosAbatidos);
+
+// declação do procedimento verificar qtd de navio afundados na Vetical
+void procuraNavio_V(int **navios, int **tiros, int n, int &naviosAbatidos);
+
+int main()
+{
+    int n, naviosAbatidos = 0;
+
+    // abrindo arquivo para leitura
+    ifstream arquivo("BatalhaNaval.txt");
+    arquivo >> n;
+
+    // declaração da matriz dinamica para posição dos navios;
+    int **navios;
+    navios = new int *[n];
+    for (int i = 0; i < n; i++)
+    {
+        navios[i] = new int[n];
+    }
+
+    // declaração da matriz dinamica para posição dos tiros;
+    int **tiros;
+    tiros = new int *[n];
+    for (int i = 0; i < n; i++)
+    {
+        tiros[i] = new int[n];
+    }
+
+    // prencher matrizes com conteudo do arquivo
+    preencheNavios(navios, n, arquivo);
+    preencheNavios(tiros, n, arquivo);
+
+    // Verificar a quantidade de navios abtidos
+    procuraNavio_H(navios, tiros, n, naviosAbatidos);
+    procuraNavio_V(navios, tiros, n, naviosAbatidos);
+
+    // impreimir quantidade de navios abtidos no terminal
+    cout << naviosAbatidos;
+
+    return 0;
+}
+
+/*
+
+
+
+
+
+*/
+
 void preencheNavios(int **matriz, int tam, ifstream &arquivo)
 {
 
@@ -15,7 +69,13 @@ void preencheNavios(int **matriz, int tam, ifstream &arquivo)
         }
     }
 }
+/*
 
+
+
+
+
+*/
 void procuraNavio_H(int **navios, int **tiros, int n, int &naviosAbatidos)
 {
 
@@ -68,13 +128,14 @@ void procuraNavio_H(int **navios, int **tiros, int n, int &naviosAbatidos)
         }
     }
 }
+
 /*
 
 
 
 
-*/
 
+*/
 void procuraNavio_V(int **navios, int **tiros, int n, int &naviosAbatidos)
 {
 
@@ -126,47 +187,4 @@ void procuraNavio_V(int **navios, int **tiros, int n, int &naviosAbatidos)
             }
         }
     }
-}
-
-/*
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-*/
-
-int main()
-{
-
-    int n, naviosAbatidos = 0;
-
-    ifstream arquivo("BatalhaNaval.txt");
-    arquivo >> n;
-
-    // declaração das matriz dinamica para posicção dos navios;
-    int **navios;
-    navios = new int *[n];
-    for (int i = 0; i < n; i++)
-    {
-        navios[i] = new int[n];
-    }
-
-    // declaração das matriz dinamica para posicção dos tiros;
-    int **tiros;
-    tiros = new int *[n];
-    for (int i = 0; i < n; i++)
-    {
-        tiros[i] = new int[n];
-    }
-
-    // prencher matrizes com conteudo do arquivo
-    preencheNavios(navios, n, arquivo);
-    preencheNavios(tiros, n, arquivo);
-
-    // Verificar a quantidade de navios abtidos na horizontal
-    procuraNavio_H(navios, tiros, n, naviosAbatidos);
-    procuraNavio_V(navios, tiros, n, naviosAbatidos);
-
-    cout << naviosAbatidos;
-
-    return 0;
 }

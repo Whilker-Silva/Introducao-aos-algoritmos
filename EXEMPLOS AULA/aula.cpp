@@ -1,19 +1,15 @@
 #include <iostream>
-
 using namespace std;
-
 int main()
 {
+    string nome, email;
+    int idade;
+    cin >> email;
+    getline(cin, nome);
 
-    string primeiroTexto = "Oa ud!";
-    char segundoTexto[10] = "l,Mno!";
-    int i = 0;
-    while (i < 6)
-    {
-        cout << primeiroTexto[i] << segundoTexto[i];
-        i++;
-    }
-    cout << endl;
-
+    cin >> idade;
+    cout << "Nome: " << nome << endl;
+    cout << "Email: " << email << endl;
+    cout << "Idade: " << idade << endl;
     return 0;
 }

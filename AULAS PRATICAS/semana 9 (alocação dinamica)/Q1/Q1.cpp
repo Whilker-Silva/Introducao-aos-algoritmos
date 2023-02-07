@@ -2,96 +2,100 @@
 
 using namespace std;
 
-void imprime(float *v, int tamanho)
-{
-    for (int i = 0; i < tamanho; i++)
-    {
-        cout << v[i] << endl;
-        // cout << *(v + i) << "";
-    }
-
-    cout << endl;
-}
+int procuramaior(float *vetor, int tam);
+int procuramenor(float *vetor, int tam);
 
 int main()
 {
-    // qtd de elementos
-    int n;
-    cin >> n;
 
-    // entrada
-    float *v = new float[n];
+    int tam;
+    cin >> tam;
 
-    for (int i = 0; i < n; i++)
+    float *vetor1 = new float[tam];
+    float *vetor2 = new float[tam - 2];
+
+    int posMaior, posMenor;
+
+    for (int i = 0; i < tam; i++)
     {
-        cin >> v[i];
+        cin >> vetor1[i];
     }
 
-    //imprime(v, n);
+    posMaior = procuramaior(vetor1, tam);
+    posMenor = procuramenor(vetor1, tam);
 
-    // Saida
-    float *saida = new float[n - 2];
-
-    float maior = v[0];
-    float segundoMaior = v[0];
-
-    int posMaior = 0;
-    int posSegundoMaior = 0;
-
-    float menor = v[0];
-    float segundoMenor = v[0];
-
-    int posMenor = 0;
-    int posSegundoMenor = 0;
-
-    for (int i = 0; i < n; i++)
+    int pos2 = 0;
+    for (int i = 0; i < tam; i++)
     {
-        if (v[i] > maior)
+        if (i != posMaior && i != posMenor)
         {
-            segundoMaior = maior;
-            posSegundoMaior = posMaior;
-
-            maior = v[i];
-            posMaior = i;
-        }
-
-        else if (v[i] > segundoMaior)
-        {
-            segundoMaior = v[i];
-            posSegundoMaior = i;
-        }
-
-        if (v[i] < menor)
-        {
-            segundoMenor = menor;
-            posSegundoMenor = posMenor;
-
-            menor = v[i];
-            posMenor = i;
-        }
-
-        else if (v[i] < segundoMenor)
-        {
-            segundoMenor = v[i];
-            posSegundoMenor = i;
+            vetor2[pos2] = vetor1[i];
+            pos2++;
         }
     }
 
-    // cout << posSegundoMaior << endl;
-    // cout << posSegundoMenor << endl;
+    // cout << posMaior << " " << posMenor;
 
-    int j = 0;
-
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < tam - 2; i++)
     {
-        if (i != posSegundoMaior and i != posSegundoMenor)
-        {
-            saida[j] = v[i];
-            j++;
-        }
+        cout << vetor2[i] << endl;
     }
-
-    imprime(saida, n - 2);
 
     return 0;
+}
+
+int procuramaior(float *vetor, int tam)
+{
+    int posicao = 0;
+
+    float maior = vetor[0];
+
+    for (int i = 0; i < tam; i++)
+    {
+        if (vetor[i] > maior)
+        {
+            maior = vetor[i];
+        }
+    }
+
+    float segundoMaior = vetor[0];
+
+    for (int i = 0; i < tam; i++)
+    {
+        if (vetor[i] < maior && vetor[i] > segundoMaior)
+        {
+            segundoMaior = vetor[i];
+            posicao = i;
+        }
+    }
+
+    return posicao;
+}
+
+int procuramenor(float *vetor, int tam)
+{
+    int posicao = 0;
+
+    float menor = vetor[0];
+
+    for (int i = 0; i < tam; i++)
+    {
+        if (vetor[i] < menor)
+        {
+            menor = vetor[i];
+        }
+    }
+
+    float segundoMenor = vetor[0];
+
+    for (int i = 0; i < tam; i++)
+    {
+        if (vetor[i] > menor && vetor[i] < segundoMenor)
+        {
+            segundoMenor = vetor[i];
+            posicao = i;
+        }
+    }
+
+    return posicao;
 }

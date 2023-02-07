@@ -1,15 +1,23 @@
 #include <iostream>
 using namespace std;
+
+struct Ponto
+{
+    int X, Y;
+};
+
 int main()
 {
-    string nome, email;
-    int idade;
-    cin >> email;
-    getline(cin, nome);
 
-    cin >> idade;
-    cout << "Nome: " << nome << endl;
-    cout << "Email: " << email << endl;
-    cout << "Idade: " << idade << endl;
+    Ponto P1, *P2, *P3;
+    cin >> P1.X >> P1.Y;
+    P2 = &P1;
+    P3 = &P1;
+
+    cout << "P1: X = " << P1.X << " Y = " << P1.Y << endl;
+    cout << "P2: X = " << (*P2).X << " Y = " << (*P2).Y << endl;
+    cout << "P3: X = " << P3->X << " Y = " << P3->Y << endl;
+
+
     return 0;
 }

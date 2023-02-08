@@ -3,7 +3,16 @@
 
 using namespace std;
 
-void AUMENTAVETOR(int *vetor, int tam, int pos);
+void AUMENTAVETOR(int *vetor, int tam, int pos)
+{
+    int *vetorauxiliar = new int[tam - 1];
+    vetorauxiliar = vetor;
+    delete[] vetor;
+    vetor = new int[tam];
+    vetor = vetorauxiliar;
+    vetor[pos] = 0;
+    delete[] vetorauxiliar;
+}
 
 int main()
 {
@@ -50,13 +59,3 @@ int main()
     return 0;
 }
 
-void AUMENTAVETOR(int *vetor, int tam, int pos)
-{
-    int *vetorauxiliar = new int[tam - 1];
-    vetorauxiliar = vetor;
-    delete[] vetor;
-    vetor = new int[tam];
-    vetor = vetorauxiliar;
-    vetor[pos] = 0;
-    delete[] vetorauxiliar;
-}

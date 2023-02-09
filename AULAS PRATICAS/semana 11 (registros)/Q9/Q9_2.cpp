@@ -17,7 +17,6 @@ struct treinos
 };
 
 void aumentavetor(treinos *vetor, int tam);
-void verifica_MaisVelho();
 
 int main()
 {
@@ -38,10 +37,10 @@ int main()
 
     // preenche dados primeiro treino
     treinos *T = new treinos[1];
-    T[0].dia = NULL;
-    T[0].codigo = NULL;
-    T[0].distancia = NULL;
-    T[0].tempo = NULL;
+    T[0].dia = 4;
+    T[0].codigo = 5;
+    T[0].distancia = 8;
+    T[0].tempo = 10;
 
     int cont = 1;
     bool valor = true;
@@ -64,38 +63,7 @@ int main()
         }
     }
 
-    verifica_MaisVelho();
-
-    int pos_maisVelho = -1;
-    int maisVelho = 0;
-    for (int i = 0; i < qtd_corredores; i++)
-    {
-
-        if (C[i].idade > maisVelho && C[i].sexo == 'M')
-        {
-            maisVelho = C[i].idade;
-            pos_maisVelho = i;
-        }
-    }
-    float distancia_maior = 0;
-    for (int i = 1; i < cont; i++)
-    {
-        if (T[i].codigo == C[pos_maisVelho].codigo)
-        {
-            distancia_maior += T[i].distancia;
-        }
-    }
-
-    // imprimir primeira sainda
-    if (maisVelho > 0)
-    {
-        cout << C[pos_maisVelho].nome << " " << distancia_maior << endl;
-    }
-
-    else
-    {
-        cout << -1 << endl;
-    }
+   
 }
 
 void aumentavetor(treinos *vetor, int tam)
@@ -108,8 +76,12 @@ void aumentavetor(treinos *vetor, int tam)
     vetor = new treinos[tam + 1];
     memcpy(vetor, aux, sizeof(treinos) * tam);
     delete[] aux;
-}
 
-void verifica_MaisVelho()
-{
+     for (int i = 0; i < tam; i++)
+    {
+        cout << vetor[i].dia << " ";
+        cout << vetor[i].codigo << " ";
+        cout << vetor[i].distancia << " ";
+        cout << vetor[i].tempo << endl;
+    }
 }

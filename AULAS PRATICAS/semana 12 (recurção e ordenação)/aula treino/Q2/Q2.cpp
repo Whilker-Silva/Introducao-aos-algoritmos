@@ -2,25 +2,26 @@
 
 using namespace std;
 
-int log(int n)
+int fatorial(int n)
 {
-    if (n == 1)
+    if (n == 0 || n == 1)
     {
-        return 0;
+        return 1;
     }
 
     else
     {
-        return 1 + log(n / 3);
+        return n * fatorial(n-2);
     }
 }
 
 int main()
 {
+
     int n;
     cin >> n;
 
-    cout << log(n);
+    cout << fatorial(n);
 
     return 0;
 }

@@ -1,101 +1,108 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
-int procuramaior(float *vetor, int tam);
-int procuramenor(float *vetor, int tam);
+int procura(float *v, int n, int teste)
+{
+
+    int maior = 0;
+    int menor = 0;
+    // procura maior e menor
+    for (int i = 0; i < n; i++)
+    {
+        if (v[i] > v[maior])
+        {
+            maior = i;
+        }
+
+        if (v[i] < v[menor])
+        {
+            menor = i;
+        }
+    }
+
+    int maior2 = menor;
+    int menor2 = maior;
+    // procura segundo maior
+    for (int i = 0; i < n; i++)
+    {
+        if (v[i] > v[maior2] and v[i] < v[maior])
+        {
+            maior2 = i;
+        }
+
+        if (v[i] < v[menor2] and v[i] > v[menor])
+        {
+            menor2 = i;
+        }
+    }
+
+    if (teste == 1)
+    {
+        return maior2;
+    }
+
+    else if (teste == 0)
+    {
+        return menor2;
+    }
+}
+
+void *reduzVetor(float *vetor, int n, int maior, int menor)
+{
+    float *novoVetor;
+    novoVetor = new float[n - 2];
+
+    int j = 0;
+
+    for (int i = 0; i < n - 2; i++)
+    {
+        if (j != maior and j != menor)
+        {
+            novoVetor[i] = vetor[j];
+            j++;
+        }
+
+        else
+        {
+            j++;
+            i--;
+        }
+    }
+
+    delete[] vetor;
+
+    vetor = new float[n - 2];
+    memcpy(vetor, novoVetor, sizeof(float) * (n - 2));
+    delete[] novoVetor;
+}
 
 int main()
 {
+    int n;
+    cin >> n;
 
-    int tam;
-    cin >> tam;
+    float *vetor;
 
-    float *vetor1 = new float[tam];
-    float *vetor2 = new float[tam - 2];
+    vetor = new float[n];
 
-    int posMaior, posMenor;
-
-    for (int i = 0; i < tam; i++)
+    for (int i = 0; i < n; i++)
     {
-        cin >> vetor1[i];
+        cin >> vetor[i];
     }
 
-    posMaior = procuramaior(vetor1, tam);
-    posMenor = procuramenor(vetor1, tam);
+    int maior = procura(vetor, n, 1);
+    int menor = procura(vetor, n, 0);
 
-    int pos2 = 0;
-    for (int i = 0; i < tam; i++)
+    reduzVetor(vetor, n, maior, menor);
+
+    for (int i = 0; i < n - 2; i++)
     {
-        if (i != posMaior && i != posMenor)
-        {
-            vetor2[pos2] = vetor1[i];
-            pos2++;
-        }
+        cout << vetor[i] << endl;
     }
 
-    // cout << posMaior << " " << posMenor;
-
-    for (int i = 0; i < tam - 2; i++)
-    {
-        cout << vetor2[i] << endl;
-    }
+    delete[] vetor;
 
     return 0;
-}
-
-int procuramaior(float *vetor, int tam)
-{
-    int posicao = 0;
-
-    float maior = vetor[0];
-
-    for (int i = 0; i < tam; i++)
-    {
-        if (vetor[i] > maior)
-        {
-            maior = vetor[i];
-        }
-    }
-
-    float segundoMaior = vetor[0];
-
-    for (int i = 0; i < tam; i++)
-    {
-        if (vetor[i] < maior && vetor[i] > segundoMaior)
-        {
-            segundoMaior = vetor[i];
-            posicao = i;
-        }
-    }
-
-    return posicao;
-}
-
-int procuramenor(float *vetor, int tam)
-{
-    int posicao = 0;
-
-    float menor = vetor[0];
-
-    for (int i = 0; i < tam; i++)
-    {
-        if (vetor[i] < menor)
-        {
-            menor = vetor[i];
-        }
-    }
-
-    float segundoMenor = vetor[0];
-
-    for (int i = 0; i < tam; i++)
-    {
-        if (vetor[i] > menor && vetor[i] < segundoMenor)
-        {
-            segundoMenor = vetor[i];
-            posicao = i;
-        }
-    }
-
-    return posicao;
 }

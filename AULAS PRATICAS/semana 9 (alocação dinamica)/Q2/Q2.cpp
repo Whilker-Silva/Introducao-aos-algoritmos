@@ -3,24 +3,10 @@
 
 using namespace std;
 
-void aumentaVetor(int *v, int tam)
-{
-    int *aux = new int[tam];
-
-    memcpy(aux, v, sizeof(int) * tam);
-    delete[] v;
-
-    v = new int[tam + 2];
-    memcpy(v, aux, sizeof(int) * tam);
-    delete[] aux;
-}
-
 int main()
 {
     int tam = 0;
-    int primeira = 0;
     int *vetor = new int[tam];
-    //aumentaVetor(vetor, tam);
     int aux;
 
     cin >> aux;
@@ -28,12 +14,14 @@ int main()
     {
         if (tam % 2 == 0 and tam > 0)
         {
-            /*if (primeira == 0)
-            {
-                aumentaVetor(vetor, tam);
-                primeira++;
-            }*/
-            aumentaVetor(vetor, tam);
+            int *auxi = new int[tam];
+
+            memcpy(auxi, vetor, sizeof(int) * tam);
+            delete[] vetor;
+
+            vetor = new int[tam + 2];
+            memcpy(vetor, auxi, sizeof(int) * tam);
+            delete[] auxi;
         }
 
         vetor[tam] = aux;
@@ -42,7 +30,21 @@ int main()
         cin >> aux;
     }
 
-    
+    float mediana;
+    if (tam % 2 == 0)
+    {
+        mediana = vetor[tam / 2];
+        mediana += vetor[(tam / 2) - 1];
+        mediana /= 2;
+    }
+
+    else
+    {
+        mediana = vetor[tam / 2];
+        mediana /= 2;
+    }
+
+    cout << mediana << " ";
 
     return 0;
 }

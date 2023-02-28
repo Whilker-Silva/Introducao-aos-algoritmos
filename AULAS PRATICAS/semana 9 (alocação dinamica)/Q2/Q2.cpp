@@ -3,6 +3,17 @@
 
 using namespace std;
 
+int *aumentaVetor(int *vetor, int tam)
+{
+    int *auxi = new int[tam + 2];
+
+    memcpy(auxi, vetor, sizeof(int) * tam);
+    delete[] vetor;
+    vetor = auxi;
+    
+    return vetor;
+}
+
 int main()
 {
     int tam = 0;
@@ -14,14 +25,7 @@ int main()
     {
         if (tam % 2 == 0 and tam > 0)
         {
-            int *auxi = new int[tam];
-
-            memcpy(auxi, vetor, sizeof(int) * tam);
-            delete[] vetor;
-
-            vetor = new int[tam + 2];
-            memcpy(vetor, auxi, sizeof(int) * tam);
-            delete[] auxi;
+            vetor = aumentaVetor(vetor, tam);
         }
 
         vetor[tam] = aux;

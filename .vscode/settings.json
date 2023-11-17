@@ -1,5 +1,12 @@
 {
     "files.associations": {
+        "*.json.liquid": "json",
+        "*.yaml.liquid": "yaml",
+        "*.md.liquid": "markdown",
+        "*.js.liquid": "liquid-javascript",
+        "*.css.liquid": "liquid-css",
+        "*.scss.liquid": "liquid-scss",
+        "*.ino": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
         "istream": "cpp",
@@ -43,6 +50,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "xstring": "cpp"
     }
 }
